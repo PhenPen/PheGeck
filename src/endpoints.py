@@ -1,0 +1,86 @@
+''' Coin Gecko API Endpoints Dictionary '''
+
+
+ENDPOINT_COINS = {
+    "/ping": "Check the API server status",
+    "/simple/price": "Query the prices of one or more coins by using their unique Coin API IDs",
+    "/simple/token_price/{id}": "Query the prices of one or more coins by using their unique Coin API IDs",
+    "/simple/supported_vs_currencies": "Query all the supported currencies on CoinGecko",
+    "/coins/list": "Query all the supported coins on CoinGecko with coins ID, name and symbol",
+    "/coins/markets": "Query all the supported coins with price, market cap, volume and market related data",
+    "/coins/{id}": "Query all the metadata (image, websites, socials, description, contract address, etc.) from the CoinGecko coin page based on a particular coin ID",
+    "/coins/{id}/tickers": "Query the coin tickers on both centralized exchange (CEX) and decentralized exchange (DEX) based on a particular coin ID",
+    "/coins/{id}/history": "Query the historical data (price, market cap, 24hr volume, …) at a given date for a coin based on a particular coin ID",
+    "/coins/{id}/market_chart": "Get the historical chart data of a coin including time in UNIX, price, market cap and 24hr volume based on particular coin ID",
+    "/coins/{id}/market_chart/range": "Get the historical chart data of a coin within certain time range in UNIX along with price, market cap and 24hr volume based on particular coin ID",
+    "/coins-id-ohlc": "Get the OHLC chart (Open, High, Low, Close) of a coin based on particular coin ID",
+    "/coins/../contract/..": "Query all the metadata (image, websites, socials, description, contract address, etc.) from the CoinGecko coin page based on an asset platform and a particular token contract address",
+    "/coins/../contract/../market_chart": "Get the historical chart data including time in UNIX, price, market cap and 24hr volume based on asset platform and particular token contract address",
+    "/coins/../contract/../market_chart/range": "Get the historical chart data within certain time range in UNIX along with price, market cap and 24hr volume based on asset platform and particular token contract address",
+    "/coins/categories/list": "Query all the coins categories on CoinGecko",
+    "/coins/categories": "Query all the coins categories with market data (market cap, volume, …) on CoinGecko"
+}
+
+
+ENDPOINT_NFTS = {
+    "/nfts/list": "Query all supported NFTs with ID, contract address, name, asset platform ID and symbol on CoinGecko",
+    "/nfts/..": "Query all the NFT data (name, floor price, 24hr volume, …) based on the NFT collection ID",
+    "/nfts/../contract/..": "Query all the NFT data (name, floor price, 24hr volume, …) based on the NFT collection contract address and respective asset platform"
+}
+
+ENDPOINT_EXCHANGES_SPOT = {
+    "/exchanges": "Query all the supported exchanges with exchanges’ data (ID, name, country, …) that have active trading volumes on CoinGecko",
+    "/exchanges/list": "Query all the exchanges with ID and name",
+    "/exchanges/{id}": "Query exchange’s data (name, year established, country, …), exchange volume in BTC and tickers based on exchange’s ID",
+    "/exchanges/{id}/tickers": "Query exchange’s tickers based on exchange’s ID",
+    "/exchanges/{id}/volume_chart": "Query the historical volume chart data with time in UNIX and trading volume data in BTC based on exchange’s ID"
+}
+
+ENDPOINT_EXCHANGES_DERIVATIVES = {
+    "/derivatives": "Query all the tickers from derivatives exchanges on CoinGecko",
+    "/derivatives/exchanges": "Query all the derivatives exchanges with related data (ID, name, open interest, …) on CoinGecko",
+    "/derivatives/exchanges/{id}": "Query the derivatives exchange’s related data (ID, name, open interest, …) based on the exchanges’ ID",
+    "/derivatives/exchanges/list": "Query all the derivatives exchanges with ID and name on CoinGecko"
+}
+
+ENDPOINT_TREASURY = {
+    "/entities/list": "Query all the supported entities (companies/governments) with their ID, name, symbol, and country.",
+    "/{entity}/public_treasury/{coin_id}": "Query the holdings of a specific coin (e.g., bitcoin) by a specific group (e.g., public_companies).",
+    "/public_treasury/{entity_id}": "Query the full cryptocurrency holdings and profile of a specific organization by its ID.",
+    "/public_treasury/{entity_id}/{coin_id}/holding_chart": "Query historical chart data of an organization's holdings for a specific coin over time.",
+    "/public_treasury/{entity_id}/transaction_history": "Query the specific buy/sell history and transaction links for an organization."
+}
+
+ENDPOINT_SEARCH = {
+    "/search": "Search for specific coins, categories, or markets by name or keyword.",
+    "/search/trending": "Query the top trending coins, NFTs, and categories from the last 24 hours.",
+    "/asset_platforms": "Query all blockchain networks (Ethereum, Solana, etc.) supported by CoinGecko.",
+    "/token_lists/{asset_platform_id}/all.json": "Get a full list of tokens for a specific blockchain network."
+}
+
+ENDPOINT_ONCHAIN = {
+    '/onchain/networks': 'Query all supported blockchain networks on GeckoTerminal.',
+    '/onchain/networks/{network}/dexes': 'Query all supported decentralized exchanges (DEXs) on a specific network.',
+    '/onchain/networks/{network}/tokens/{token_address}/info': 'Query token metadata (socials, description, image) via contract address.',
+    '/onchain/networks/{network}/pools/{pool_address}': "Query a specific liquidity pool's data.",
+    '/onchain/networks/{network}/pools/multi/{pool_addresses}': 'Query multiple pools at once.',
+    '/onchain/networks/trending_pools': 'Query trending pools across all networks.',
+    '/onchain/networks/{network}/trending_pools': 'Query trending pools on a specific network.',
+    '/onchain/networks/{network}/pools': 'Query top-performing pools on a specific network.',
+    '/onchain/networks/{network}/dexes/{dex}/pools': 'Query top pools for a specific DEX (e.g., Uniswap) on a specific network.',
+    '/onchain/networks/new_pools': 'Query the newest pools created across all networks.',
+    '/onchain/networks/{network}/new_pools': 'Query the latest pools on a specific network.',
+    '/onchain/search/pools': 'Search for pools by name or address.',
+    '/onchain/networks/{network}/pools/{pool_address}/info': 'Query pool metadata (base/quote token details, socials).',
+    '/onchain/simple/networks/{network}/token_price/{token_addresses}': 'Get real-time token price based on contract address.',
+    '/onchain/networks/{network}/tokens/{token_address}/pools': 'Query all pools that contain a specific token.',
+    '/onchain/networks/{network}/tokens/{token_address}': 'Query specific data for a token on a network.',
+    '/onchain/tokens/info_recently_updated': 'Query the 100 most recently updated tokens across all networks.',
+    '/onchain/networks/{network}/pools/{pool_address}/ohlcv/{timeframe}': 'Get OHLCV chart data (Open, High, Low, Close, Volume) for a pool.',
+    '/onchain/networks/{network}/pools/{pool_address}/trades': 'Query the last 300 trades in the past 24 hours for a pool.'
+}
+
+
+ENDPOINT_ALL = {**ENDPOINT_COINS, **ENDPOINT_NFTS, **ENDPOINT_EXCHANGES_SPOT, **ENDPOINT_EXCHANGES_DERIVATIVES, **ENDPOINT_TREASURY, **ENDPOINT_SEARCH, **ENDPOINT_ONCHAIN}
+
+
