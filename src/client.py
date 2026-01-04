@@ -1,12 +1,15 @@
-import requests, os
+import requests, os, config
 from dotenv import load_dotenv
-import config
 
 # Loading API Key stored in env
 load_dotenv() #Load every environmental variable found in any .env file in project
 test_api_key = os.getenv("API_KEY")
 test_debug = os.getenv("DEBUG")
+
+
 base_url = config.DEFAULT_BASE_URL
+default_timeout = config.TIMEOUT
+default_retries = config.RETRY_ATTEMPT
 
 
 
@@ -15,11 +18,14 @@ base_url = config.DEFAULT_BASE_URL
 
 class CoinGeckoClient : #() Only add parenthesis if inheriting from another class
     def __init__(self,API_Key = None) -> None:
-        self.base_url = base_url
+        self.base_url = config.DEFAULT_BASE_URL
         self.API_Key = API_Key
         self.query_params = {}
         self.custom_headers = {}
         self.endpoint = None
+        self.custom_timeout = config.TIMEOUT
+        self.custom_retry_attempt = config.RETRY_ATTEMPT
+        self.custom_retry_delay = config.RETRY_DELAY
 
     def api_key(self):
         '''
@@ -76,10 +82,31 @@ class CoinGeckoClient : #() Only add parenthesis if inheriting from another clas
     def all_headers(self) -> dict:
         headers = {**self.headerAPI_Key(),**self.custom_headers}
         return headers
+    
+    @property
+    def timeout(self) :
+        '''
+    Gets the current timeout value.
+    
+    Returns:
+        int: The timeout in seconds
+    '''
+        return self.custom_timeout
+    
+    @timeout.setter
+    def timeout(self, value):
+        ''' Sets the timeout value.
+    
+    Args:
+        value (int): The timeout in seconds
+    '''
+        self.custom_timeout = value
+        print(f'Timeout Changed to {value} seconds') 
+        
 
     def run(self):
         try :
-            response = requests.get(f"{self.base_url}{self.endpoint}", headers=self.all_headers(), params=self.query_params)
+            response = requests.get(f"{self.base_url}{self.endpoint}", headers=self.all_headers(), params=self.query_params, timeout=config.TIMEOUT)
             response.raise_for_status()  # Raise an error for bad status codes
             return response.json() # will change this to return response object later for more flexibility
         except AttributeError as error:
@@ -1037,19 +1064,19 @@ class Endpoints:
         self.client.endpoint = f'/onchain/networks/{network}/pools/{pool_address}/trades'
         return self.client
 
-cg = CoinGeckoClient(test_api_key)
-parameters = {
-    "ids": "bitcoin,ethereum",
-    "vs_currencies": "usd"
-}
+#cg = CoinGeckoClient(test_api_key)
+#parameters = {
+#    "ids": "bitcoin,ethereum",
+#    "vs_currencies": "usd"
+#}
 
  
  
-result = cg.endpoints.simple_price.params(parameters).run()
-print(result)
+#result = cg.endpoints.simple_price.params(parameters).run()
+#print(result)
 
 
-# Need to handle response
-# Need to know how to log errors and responses
-# Need to handle timeouts and retries
-# Option to use .env api key else input  api key each time
+#print(cg.timeout)
+
+
+
